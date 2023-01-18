@@ -5,7 +5,7 @@ import CarODM from '../Models/CarODM';
 import StatusHTTP from '../utils/StatusHTTP';
 
 export default class CarsService {
-  private createCarDomain(car: ICar | null) : Car | null {
+  public createCarDomain(car: ICar | null) : Car | null {
     if (car) return new Car(car);
     return null;
   }
