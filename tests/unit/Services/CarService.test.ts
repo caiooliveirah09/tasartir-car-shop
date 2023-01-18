@@ -7,9 +7,16 @@ import StatusHTTP from '../../../src/utils/StatusHTTP';
 
 describe('testing CarService', function () {
   const service = new CarsService();
+  
   afterEach(function () {
     sinon.restore();
   });
+
+  it('testing createCarDomain() with null car', async function () {
+    const result = await service.createCarDomain(null);
+    expect(result).to.be.equal(null);
+  });
+
   it('testing CarService.create() with status', async function () {
     sinon.stub(Model, 'create').resolves(mocks.oneCarInDB);
     const result = await service.create(mocks.createCarInputWithStatus);
