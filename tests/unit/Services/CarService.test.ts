@@ -39,9 +39,10 @@ describe('testing CarService', function () {
   });
 
   it('testing CarService.findById() with incorrect id', async function () {
+    sinon.stub(Model, 'findById').resolves();
     const result = await service.findById(mocks.incorrectCarId);
     expect(result.message).to.be.equal('Car not found');
-    expect(result.message).to.be.equal(StatusHTTP.NOT_FOUND);
+    expect(result.status).to.be.equal(StatusHTTP.NOT_FOUND);
   });
 
   it('testing CarService.findById() with invalid id', async function () {
