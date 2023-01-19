@@ -5,7 +5,7 @@ import CarsService from '../../../src/Services/CarsService';
 import mocks from '../CarMocks';
 import StatusHTTP from '../../../src/utils/StatusHTTP';
 
-describe('testing CarService', function () {
+describe('testing CarsService', function () {
   const service = new CarsService();
 
   afterEach(function () {
