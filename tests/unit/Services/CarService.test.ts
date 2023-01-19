@@ -7,7 +7,7 @@ import StatusHTTP from '../../../src/utils/StatusHTTP';
 
 describe('testing CarService', function () {
   const service = new CarsService();
-  
+
   afterEach(function () {
     sinon.restore();
   });
@@ -54,6 +54,27 @@ describe('testing CarService', function () {
 
   it('testing CarService.findById() with invalid id', async function () {
     const result = await service.findById(mocks.invalidCarId);
+    expect(result.message).to.be.equal('Invalid mongo id');
+    expect(result.status).to.be.equal(StatusHTTP.UNPROCESSABLE_ENTITY);
+  });
+
+  it('testing CarService.findByIdAndUpdate() with correct id', async function () {
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(mocks.alteredCarInDB);
+    const result = await service.findByIdAndUpdate(mocks.correctCarId, mocks.bodyForUpdateCarById);
+    expect(result.message).to.be.deep.equal(mocks.alteredCarInDB);
+    expect(result.status).to.be.equal(StatusHTTP.OK);
+  });
+
+  it('testing CarService.findByIdAndUpdate() with incorrect id', async function () {
+    sinon.stub(Model, 'findByIdAndUpdate').resolves();
+    const result = await service
+      .findByIdAndUpdate(mocks.incorrectCarId, mocks.bodyForUpdateCarById);
+    expect(result.message).to.be.equal('Car not found');
+    expect(result.status).to.be.equal(StatusHTTP.NOT_FOUND);
+  });
+
+  it('testing CarService.findByIdAndUpdate() with invalid id', async function () {
+    const result = await service.findByIdAndUpdate(mocks.invalidCarId, mocks.bodyForUpdateCarById);
     expect(result.message).to.be.equal('Invalid mongo id');
     expect(result.status).to.be.equal(StatusHTTP.UNPROCESSABLE_ENTITY);
   });

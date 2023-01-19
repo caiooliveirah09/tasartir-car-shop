@@ -32,4 +32,10 @@ export default class CarODM {
     const car = await this.model.findById(id);
     return car;
   }
+
+  public async findByIdAndUpdate(id: string, update: ICar) : Promise<ICar | null> {
+    const carUpdated = await this.model
+      .findByIdAndUpdate({ _id: id }, { ...update }, { new: true });
+    return carUpdated;
+  } 
 }

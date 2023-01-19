@@ -32,4 +32,15 @@ export default class CarsService {
       return { status: StatusHTTP.UNPROCESSABLE_ENTITY, message: 'Invalid mongo id' };
     }
   }
+
+  public async findByIdAndUpdate(id: string, update: ICar): Promise<IController> {
+    try {
+      const carODM = new CarODM();
+      const carUpdated = await carODM.findByIdAndUpdate(id, update);
+      if (!carUpdated) return { status: StatusHTTP.NOT_FOUND, message: 'Car not found' };
+      return { status: StatusHTTP.OK, message: this.createCarDomain(carUpdated) };
+    } catch (error) {
+      return { status: StatusHTTP.UNPROCESSABLE_ENTITY, message: 'Invalid mongo id' };
+    }
+  }
 }

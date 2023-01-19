@@ -31,4 +31,11 @@ export default class CarsController {
     if (status === StatusHTTP.OK) return this.res.status(status).json(message);
     return this.res.status(status).json({ message });
   }
+
+  public async findByIdAndUpdate() {
+    const { status, message } = await this.service
+      .findByIdAndUpdate(this.req.params.id as string, this.req.body as ICar);
+    if (status === StatusHTTP.OK) return this.res.status(status).json(message);
+    return this.res.status(status).json({ message });
+  }
 }
