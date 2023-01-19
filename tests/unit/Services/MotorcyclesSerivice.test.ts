@@ -12,7 +12,7 @@ describe('testing MotorcyclesService', function () {
     sinon.restore();
   });
 
-  it('testing createMotorcycleDomain() with null car', async function () {
+  it('testing createMotorcycleDomain() with null motorcycle', async function () {
     const result = await service.createMotorcycleDomain(null);
     expect(result).to.be.equal(null);
   });
